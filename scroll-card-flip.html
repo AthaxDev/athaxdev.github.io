@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flip Card</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    :root{
+        /* scroll-behavior: smooth; */
+    }
+    a {
+        color: #f2f2f2;
+    }
+    body {
+        color: #f2f2f2;
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
+        /* height: 500vh; */
+        background-color: #0b3dc7;
+        margin: 0;
+    }
+
+    .flip-card {
+        background-color: transparent;
+        width: 200px;
+        height: 300px;
+        perspective: 1000px;
+    }
+    
+    .flip-card-inner {
+            transform: translateY(700px) rotateY(180deg);
+        /* position: fixed; */
+        /* top: 0; */
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        animation: card-1;
+        animation-timeline: view(block);
+        animation-timing-function: linear;
+        animation-range: cover 80% cover 200%;
+        animation-fill-mode: forwards;
+    }
+
+    /* .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    } */
+
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        font-size: 24px;
+        font-family: sans-serif;
+        color: white;
+    }
+    @keyframes card-1 {
+        0% {
+            transform: translateY(700px) rotateY(180deg);
+            /* opacity: 0; */
+        }
+        10% {
+            transform: translateY(0px) rotateY(180deg) rotateZ(-5deg);
+            /* opacity: 1; */
+        }
+        20% {
+            transform: translateZ(100px) rotateY(180deg) rotateZ(0deg);
+        }
+        30% {
+            transform: translateZ(100px) rotateY(180deg);
+        }
+        40% {
+            transform: translateZ(100px) rotateY(120deg); /* dari belakang ke samping */
+        }
+        50% {
+            transform: translateZ(100px) rotateY(0deg); /* menghadap depan */
+        }
+        80% {
+            transform: translateZ(800px) rotateZ(90deg); /* menghadap depan */
+        }
+        100% {
+            transform: translateZ(800px) scale(2) translateY(00px) rotateZ(90deg);
+            /* opacity: 0; */
+        }
+    }
+
+    .flip-card-front {
+        background-color: #f2f2f2;
+        color: #2f2f2f;
+    }
+
+    .flip-card-back {
+        background-image: url("https://lusion.co/assets/images/cards/back.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        transform: rotateY(180deg);
+    }
+    .sec1{
+        z-index: -1;
+        position: fixed;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100dvh;
+        animation: shake 3s ease-in-out infinite;
+    }
+    @keyframes shake {
+        0% {
+            transform: translateY(10px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+        100% {
+            transform: translateY(10px);
+        }
+    }
+    .sec {
+        /* scroll-margin-top: 50vh; Adds space to slow down approach */
+        /* position: relative; */
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+    .scroll-reveal {
+    text-align: center;
+    }
+    .scroll-reveal span {
+    opacity: 0;
+    transform: translateY(20px);
+    display: inline-block;
+    animation: word-fade 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timeline: view(block);
+    animation-range: cover 0% cover 35%;
+    animation-fill-mode: forwards;
+    }
+
+    @keyframes word-fade {
+    from {
+        opacity: 0;
+        transform: translateY(200px) rotate(20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    .poppins-thin {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    }
+
+    .poppins-extralight {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    }
+
+    .poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    }
+
+    .poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    }
+
+    .poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    }
+
+    .poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    }
+
+    .poppins-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    }
+
+    .poppins-extrabold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    }
+
+    .poppins-black {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    }
+
+    .poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    }
+
+    .poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    }
+
+    .poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    }
+
+    .poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    }
+
+    .poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    }
+
+    .poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    }
+
+    .poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    }
+
+    .poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    }
+
+    .poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    }
+
+  </style>
+</head>
+<body>
+    <div class="sec1">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                </div>
+                <div class="flip-card-back"></div>
+            </div>
+        </div>
+    </div>
+    <div class="sec">
+        <h1 class="poppins-bold">SCROLL DOWN</h1>
+        <a href="#about"><h1 class="poppins-bold">About Me?</h1></a>
+    </div>
+    <div class="sec"></div>
+    <div class="sec" style="color: #2f2f2f;" id="about">
+        <span style="background-image: url('https://fvscyber.github.io/src/img/Char.jpeg'); width: 30vw; height: 30vw; background-size: cover; border-radius: 100%; max-width: 300px; max-height: 300px;"></span>
+        <h1 class="poppins-light">Athaxdev.</h1>
+        <h2 class="poppins-bold"></h2>
+        <h2 class="scroll-reveal poppins-light-italic">
+            <span style="animation-delay: 0s;">Experienced Hardware Developer</span>
+            <span style="animation-delay: 0.2s;">with a passion for</span>
+            <span style="animation-delay: 0.4s;">creating helpful</span>
+            <span style="animation-delay: 0.6s;">hardware for user</span>
+        </h2>
+
+    </div>
+    <script>
+  function smoothScrollTo(targetSelector, duration = 2000) {
+    const target = document.querySelector(targetSelector);
+    if (!target) return;
+
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + start;
+    const distance = end - start;
+    const startTime = performance.now();
+
+    function easeInOut(t) {
+      return t < 0.5
+        ? 2 * t * t
+        : -1 + (4 - 2 * t) * t;
+    }
+
+    function scroll(currentTime) {
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      const easedProgress = easeInOut(progress);
+      window.scrollTo(0, start + distance * easedProgress);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(scroll);
+      }
+    }
+
+    requestAnimationFrame(scroll);
+  }
+
+  // Apply to all <a href="#..."> links
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = this.getAttribute('href');
+      if (target.length > 1) {
+        e.preventDefault();
+        smoothScrollTo(target, 3000); // scroll duration in ms
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
