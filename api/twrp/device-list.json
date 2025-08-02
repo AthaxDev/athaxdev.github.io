@@ -1,44 +1,37 @@
 [
   {
     "device": "Infinix Smart 8 (X6525)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6525/TWRP_X6525_vendor_boot.img"
   },
   {
     "device": "Infinix Hot 40i (X6528B)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6525/TWRP_X6525_vendor_boot.img"
   },
   {
     "device": "Infinix Hot 30i (X669)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x669/TWRP_X669_vendor_boot.img"
   },
   {
     "device": "Itel S23 (S665L)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/For_s23/TWRP_S665L.img"
   },
   {
     "device": "Itel P55NFC (A666LN)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_p55nfc/Twrp_P55_NFC_A666LN.img"
   },
   {
     "device": "Itel S23 Plus (S681LN)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_s681ln/TWRP_S681LN_vendor_boot.img"
   },
   {
     "device": "Itel A70 (A665L)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_a70/TWRP_A665L_vendor_boot.img"
   }
 ]
