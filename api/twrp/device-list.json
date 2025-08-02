@@ -4,5 +4,11 @@
     "partition_a": "vendor_boot_a",
     "partition_b": "vendor_boot_b",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6525/TWRP_X6525_vendor_boot.img"
+  },
+  {
+    "device": "Infinix Hot 40i (X6528B)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6528b/TWRP_X6528_vendor_boot.img"
   }
 ]
