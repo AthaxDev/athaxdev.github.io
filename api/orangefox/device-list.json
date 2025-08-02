@@ -1,0 +1,44 @@
+[
+  {
+    "device": "Infinix Smart 8 (X6525)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6525/OrangeFox-Unofficial_X6525.img"
+  },
+  {
+    "device": "Infinix Hot 40i (X6528B)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6528b/OrangeFox-Unofficial_X6528.img"
+  },
+  {
+    "device": "Infinix Hot 30i (X669)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x669/OrangeFox-Unofficial_X669.img"
+  },
+  {
+    "device": "Itel S23 (S665L)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/For_s23/OrangeFox_S665L.img"
+  },
+  {
+    "device": "Itel P55NFC (A666LN)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_p55nfc/OrangeFox-Unofficial_A666LN.img"
+  },
+  {
+    "device": "Itel S23 Plus (S681LN)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_s681ln/OrangeFox-Unofficial_S681LN.img"
+  },
+  {
+    "device": "Itel A70 (A665L)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_a70/OrangeFox-Unofficial_A665L.img"
+  }
+]
