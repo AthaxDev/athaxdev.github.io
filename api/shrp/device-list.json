@@ -1,32 +1,27 @@
 [
   {
     "device": "Infinix Smart 8 (X6525)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6525/SHRP_X6525.img"
   },
   {
     "device": "Infinix Hot 40i (X6528B)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_x6528b/SHRP_X6528.img"
   },
   {
     "device": "Itel S23 (S665L)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/For_s23/SHRP_S665L.img"
   },
   {
     "device": "Itel P55NFC (A666LN)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_p55nfc/SHRP_A666LN.img"
   },
   {
     "device": "Itel S23 Plus (S681LN)",
-    "partition_a": "vendor_boot_a",
-    "partition_b": "vendor_boot_b",
+    "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_s681ln/SHRP_S681LN.img"
   }
 ]
