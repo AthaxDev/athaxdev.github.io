@@ -1,0 +1,8 @@
+[
+  {
+    "device": "Infinix Smart 8 (X6525)",
+    "partition_a": "vendor_boot_a",
+    "partition_b": "vendor_boot_b",
+    "path_img": "api/twrp/x6525-twrp.img"
+  }
+]
