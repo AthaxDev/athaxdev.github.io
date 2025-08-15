@@ -19,7 +19,6 @@ body::after {
       transparent 1px,
       transparent 2px
     );
-  mix-blend-mode: overlay;
   animation: noiseMove 0.5s steps(2) infinite;
   z-index: 99998;
   pointer-events: none;
