@@ -1,4 +1,5 @@
          body::after{
+            z-index: 9999;
             content: "JSO?? NO THIS CSS OVERLAY, HACKED BY FVSCyber";
             font-family: 'Courier New', Courier, monospace;
             font-size: 2em;
