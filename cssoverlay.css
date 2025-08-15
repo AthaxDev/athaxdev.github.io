@@ -9,7 +9,7 @@ body::after {
   z-index: 99998;
   pointer-events: none;
   background-color: #0000009e;
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(15px);
 }
 
 /* Glitch text */
