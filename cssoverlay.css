@@ -27,7 +27,7 @@ body::before {
   font-weight: bold;
   color: white;
   text-shadow: 2px 0 red, -2px 0 cyan;
-  animation: glitchText 2s infinite;
+  animation: glitchText .5s infinite;
   z-index: 99999;
   pointer-events: none;
   width: 100dvw;
