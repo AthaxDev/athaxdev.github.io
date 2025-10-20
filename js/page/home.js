@@ -46,7 +46,7 @@ export const HomePage = (function() {
                     },
                         Button.createLink('Telegram Channel', 'https://t.me/forumitelindonesia', '#00d0ecff', '#008cffff'),
                         Button.createNavLink('Get SPDTools', '/tools', 'rgba(100, 121, 255, 0.8)', 'rgba(162, 175, 255, 0.82)'),
-                        Button.createNavLink('Recovery', '/recovery', 'rgba(255, 127, 127, 0.8)', 'rgba(255, 127, 127, 0.4)'),
+                        Button.createNavLink('Recovery', '/recovery', 'rgba(255, 127, 127, 0.87)', 'rgba(255, 127, 127, 0.58)'),
 
                     )
                 ]
