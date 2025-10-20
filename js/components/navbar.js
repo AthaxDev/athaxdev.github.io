@@ -14,9 +14,9 @@ export const Navbar = (function() {
                 transition: 'max-height 0.3s ease',
             }
         },
-            Button.createNavLink('Home', '/', 'rgba(255, 146, 146, 0.8)', 'rgba(250, 160, 160, 0.7)'),
-            Button.createNavLink('SPDTools', '/tools', 'rgba(255, 127, 255, 0.8)', 'rgba(255, 127, 255, 0.4)'),
-            Button.createNavLink('Recovery', '/recovery', 'rgba(127, 127, 255, 0.8)', 'rgba(127, 127, 255, 0.4)'),
+            Button.createNavLink('Home', '/', 'rgba(155, 255, 146, 0.8)', 'rgba(160, 250, 184, 0.7)'),
+            Button.createNavLink('SPDTools', '/tools', 'rgba(100, 121, 255, 0.8)', 'rgba(162, 175, 255, 0.82)'),
+            Button.createNavLink('Recovery', '/recovery', 'rgba(255, 127, 127, 0.8)', 'rgba(255, 127, 127, 0.4)'),
             Button.createNavLink('About', '/about', 'rgba(127, 255, 212, 0.8)', 'rgba(127, 255, 212, 0.64)'),
             Button.createNavLink('Contact', '/contact', 'rgba(255, 217, 0, 1)', 'rgba(255, 217, 0, 0.65)')
         );
