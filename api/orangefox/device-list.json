@@ -33,5 +33,9 @@
     "device": "Itel A70 (A665L)",
     "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_a70/OrangeFox-Unofficial_A665L.img"
+  },
+  { "device": "Itel P65 P671L A14",
+    "partition": "vendor_boot",
+    "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_p671l/OrangeFox-Unofficial_P671L.img"
   }
 ]
