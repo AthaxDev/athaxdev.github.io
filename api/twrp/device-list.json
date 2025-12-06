@@ -33,5 +33,10 @@
     "device": "Itel A70 (A665L)",
     "partition": "vendor_boot",
     "url_img": "https://github.com/Massatriof16/recovery-collections/releases/download/for_a70/TWRP_A665L_vendor_boot.img"
+  },
+    {
+    "device": "REALME C33 RMX3624",
+    "soc": "UMS9230",
+    "resources": "https://github.com/Massatriof16/recovery-collections/releases/download/for_rmx3624/TWRP_RMX3624_vendor_boot.img"
   }
 ]
