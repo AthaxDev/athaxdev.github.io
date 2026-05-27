@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>OKS Sprite Packer</title>
+        <style>
+            :root {
+                --bg: #0d0d0f;
+                --surface: #16171a;
+                --surface2: #1e2025;
+                --border: #2a2c33;
+                --accent: #08f2d8;
+                --accent2: #50c878;
+                --text: #e8eaf0;
+                --muted: #6b7080;
+                --danger: #ff4d6a;
+                --success: #1db87a;
+                --radius: 10px;
+                --font: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 13px;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 20px;
+            }
+
+            .header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .header h1 {
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: 0.15em;
+                color: var(--accent);
+                text-transform: uppercase;
+                margin-bottom: 6px;
+            }
+            .header .sub {
+                color: var(--muted);
+                font-size: 11px;
+                letter-spacing: 0.08em;
+            }
+            .magic-pill {
+                display: inline-block;
+                margin-top: 10px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 4px 14px;
+                font-size: 11px;
+                color: var(--accent);
+                letter-spacing: 0.12em;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 760px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .format-box {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 16px 20px;
+            }
+            .format-box h3 {
+                font-size: 10px;
+                letter-spacing: 0.15em;
+                color: var(--muted);
+                text-transform: uppercase;
+                margin-bottom: 12px;
+            }
+            .format-row {
+                display: grid;
+                grid-template-columns: 80px 60px 1fr;
+                gap: 8px;
+                padding: 5px 0;
+                border-bottom: 1px solid var(--border);
+                font-size: 11px;
+            }
+            .format-row:last-child {
+                border-bottom: none;
+            }
+            .format-row .off {
+                color: var(--accent);
+            }
+            .format-row .sz {
+                color: var(--accent2);
+            }
+            .format-row .desc {
+                color: var(--muted);
+            }
+
+            .sprites-grid {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 12px;
+            }
+            @media (max-width: 600px) {
+                .sprites-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            .sprite-slot {
+                background: var(--surface);
+                border: 1px dashed var(--border);
+                border-radius: var(--radius);
+                padding: 12px 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                transition:
+                    border-color 0.15s,
+                    background 0.15s;
+                position: relative;
+                min-height: 110px;
+            }
+            .sprite-slot:hover {
+                border-color: var(--accent);
+                background: var(--surface2);
+            }
+            .sprite-slot.loaded {
+                border-style: solid;
+                border-color: var(--accent2);
+            }
+            .sprite-slot.error {
+                border-style: solid;
+                border-color: var(--danger);
+            }
+
+            .sprite-slot input[type="file"] {
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+                cursor: pointer;
+                width: 100%;
+                height: 100%;
+            }
+            .sprite-name {
+                font-size: 10px;
+                letter-spacing: 0.1em;
+                color: var(--accent);
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+            .sprite-preview {
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+                image-rendering: pixelated;
+                display: none;
+            }
+            .sprite-preview.show {
+                display: block;
+            }
+            .sprite-icon {
+                font-size: 28px;
+                opacity: 0.25;
+                line-height: 1;
+            }
+            .sprite-info {
+                font-size: 10px;
+                color: var(--accent2);
+                text-align: center;
+                line-height: 1.5;
+            }
+            .sprite-info.hidden {
+                display: none;
+            }
+            .sprite-placeholder {
+                color: var(--muted);
+                font-size: 10px;
+                text-align: center;
+            }
+
+            .actions {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+            .btn {
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                color: var(--text);
+                font-family: var(--font);
+                font-size: 12px;
+                letter-spacing: 0.08em;
+                padding: 10px 22px;
+                cursor: pointer;
+                transition: all 0.15s;
+                text-transform: uppercase;
+            }
+            .btn:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+            .btn.primary {
+                background: var(--accent);
+                color: #000;
+                border-color: var(--accent);
+                font-weight: 700;
+            }
+            .btn.primary:hover {
+                background: #05d4be;
+            }
+            .btn.primary:disabled {
+                opacity: 0.35;
+                cursor: not-allowed;
+                background: var(--accent);
+                color: #000;
+            }
+            .btn.danger {
+                border-color: var(--danger);
+                color: var(--danger);
+            }
+
+            .status-bar {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 12px 16px;
+                font-size: 11px;
+                color: var(--muted);
+                line-height: 1.6;
+                min-height: 48px;
+            }
+            .status-bar .ok {
+                color: var(--success);
+            }
+            .status-bar .err {
+                color: var(--danger);
+            }
+            .status-bar .info {
+                color: var(--accent);
+            }
+
+            .hex-preview {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 14px 16px;
+                font-size: 11px;
+                color: var(--accent2);
+                letter-spacing: 0.06em;
+                word-break: break-all;
+                line-height: 1.8;
+                display: none;
+            }
+            .hex-preview.show {
+                display: block;
+            }
+            .hex-preview .magic {
+                color: var(--accent);
+                font-weight: 700;
+            }
+            .hex-preview .label {
+                color: var(--muted);
+            }
+
+            .progress {
+                width: 100%;
+                height: 3px;
+                background: var(--border);
+                border-radius: 2px;
+                overflow: hidden;
+                display: none;
+            }
+            .progress.show {
+                display: block;
+            }
+            .progress-bar {
+                height: 100%;
+                background: var(--accent);
+                width: 0%;
+                transition: width 0.2s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>OKS Sprite Packer</h1>
+            <div class="sub">
+                Pack 5 transparent PNGs into a single .oks sprite atlas
+            </div>
+            <div class="magic-pill">MAGIC: 4F 4B 53 01</div>
+        </div>
+
+        <div class="container">
+            <!-- Format Spec -->
+            <div class="format-box">
+                <h3>Binary Format — sprites.oks</h3>
+                <div class="format-row">
+                    <span class="off">0x00</span><span class="sz">4 bytes</span
+                    ><span class="desc"
+                        >Magic: <b style="color: var(--accent)">OKS\x01</b> =
+                        [4F 4B 53 01]</span
+                    >
+                </div>
+                <div class="format-row">
+                    <span class="off">0x04</span><span class="sz">1 byte</span
+                    ><span class="desc"
+                        >Version:
+                        <b style="color: var(--accent2)">0x01</b></span
+                    >
+                </div>
+                <div class="format-row">
+                    <span class="off">0x05</span><span class="sz">1 byte</span
+                    ><span class="desc">Sprite count (N)</span>
+                </div>
+                <div class="format-row">
+                    <span class="off">0x06+</span
+                    ><span class="sz">per sprite</span
+                    ><span class="desc"
+                        >[ 1B name_len ][ name bytes ][ 4B png_size LE ][ png
+                        bytes ]</span
+                    >
+                </div>
+            </div>
+
+            <!-- Sprite Slots -->
+            <div class="sprites-grid" id="grid"></div>
+
+            <!-- Progress -->
+            <div class="progress" id="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button class="btn primary" id="packBtn" disabled>
+                    Pack → sprites.oks
+                </button>
+                <button class="btn" id="clearBtn">Clear all</button>
+                <span
+                    style="color: var(--muted); font-size: 11px"
+                    id="sizeLabel"
+                ></span>
+            </div>
+
+            <!-- Status -->
+            <div class="status-bar" id="status">
+                <span class="info"
+                    >→ Drop PNG files into each slot. All 5 must be loaded
+                    before packing.</span
+                >
+            </div>
+
+            <!-- Hex preview of header -->
+            <div class="hex-preview" id="hexPreview"></div>
+        </div>
+
+        <script>
+            const SPRITES = [
+                { id: "idle", icon: "0", label: "idle.png" },
+                { id: "forward", icon: "▲", label: "forward.png" },
+                { id: "backward", icon: "▼", label: "backward.png" },
+                { id: "left", icon: "◀", label: "left.png" },
+                { id: "right", icon: "▶", label: "right.png" },
+                { id: "jump", icon: "⬆", label: "jump.png" },
+            ];
+
+            const files = {};
+
+            function buildGrid() {
+                const grid = document.getElementById("grid");
+                SPRITES.forEach((s) => {
+                    const slot = document.createElement("div");
+                    slot.className = "sprite-slot";
+                    slot.id = "slot_" + s.id;
+                    slot.innerHTML = `
+      <input type="file" accept="image/png" data-id="${s.id}" />
+      <div class="sprite-name">${s.id}</div>
+      <div class="sprite-icon" id="icon_${s.id}">${s.icon}</div>
+      <img class="sprite-preview" id="prev_${s.id}" />
+      <div class="sprite-placeholder" id="ph_${s.id}">${s.label}</div>
+      <div class="sprite-info hidden" id="info_${s.id}"></div>
+    `;
+                    grid.appendChild(slot);
+                    slot.querySelector("input").addEventListener(
+                        "change",
+                        (e) => onFile(e, s.id),
+                    );
+                });
+            }
+
+            function onFile(e, id) {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (!file.name.endsWith(".png") && file.type !== "image/png") {
+                    setStatus(
+                        `<span class="err">✗ ${id}: must be a PNG file</span>`,
+                    );
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const ab = ev.target.result;
+                    files[id] = new Uint8Array(ab);
+
+                    const url = URL.createObjectURL(file);
+                    const img = document.getElementById("prev_" + id);
+                    img.src = url;
+                    img.onload = () => {
+                        document.getElementById("icon_" + id).style.display =
+                            "none";
+                        img.classList.add("show");
+                        document.getElementById("ph_" + id).style.display =
+                            "none";
+                        const info = document.getElementById("info_" + id);
+                        info.textContent = `${img.naturalWidth}×${img.naturalHeight}\n${(ab.byteLength / 1024).toFixed(1)} KB`;
+                        info.classList.remove("hidden");
+                        document
+                            .getElementById("slot_" + id)
+                            .classList.add("loaded");
+                        checkReady();
+                    };
+                };
+                reader.readAsArrayBuffer(file);
+            }
+
+            function checkReady() {
+                const loaded = SPRITES.filter((s) => files[s.id]).length;
+                document.getElementById("packBtn").disabled =
+                    loaded < SPRITES.length;
+                setStatus(
+                    loaded === SPRITES.length
+                        ? `<span class="ok">✓ All 5 sprites loaded — ready to pack</span>`
+                        : `<span class="info">→ ${loaded}/5 sprites loaded</span>`,
+                );
+                if (loaded === SPRITES.length) updateSizeLabel();
+            }
+
+            function updateSizeLabel() {
+                let total = 6;
+                SPRITES.forEach((s) => {
+                    if (files[s.id])
+                        total += 1 + s.id.length + 4 + files[s.id].byteLength;
+                });
+                document.getElementById("sizeLabel").textContent =
+                    `≈ ${(total / 1024).toFixed(1)} KB`;
+            }
+
+            function pack() {
+                const btn = document.getElementById("packBtn");
+                btn.disabled = true;
+
+                const MAGIC = [0x4f, 0x4b, 0x53, 0x01];
+                const VERSION = 0x01;
+                const COUNT = SPRITES.length;
+
+                let totalSize = 6;
+                SPRITES.forEach((s) => {
+                    totalSize += 1 + s.id.length + 4 + files[s.id].byteLength;
+                });
+
+                const buf = new Uint8Array(totalSize);
+                const view = new DataView(buf.buffer);
+                let off = 0;
+
+                MAGIC.forEach((b) => (buf[off++] = b));
+                buf[off++] = VERSION;
+                buf[off++] = COUNT;
+
+                const prog = document.getElementById("progress");
+                const bar = document.getElementById("progressBar");
+                prog.classList.add("show");
+
+                SPRITES.forEach((s, i) => {
+                    const nameBytes = new TextEncoder().encode(s.id);
+                    buf[off++] = nameBytes.length;
+                    nameBytes.forEach((b) => (buf[off++] = b));
+
+                    const png = files[s.id];
+                    view.setUint32(off, png.byteLength, true);
+                    off += 4;
+                    buf.set(png, off);
+                    off += png.byteLength;
+
+                    bar.style.width = ((i + 1) / SPRITES.length) * 100 + "%";
+                });
+
+                showHexPreview(buf);
+
+                const blob = new Blob([buf], {
+                    type: "application/octet-stream",
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "sprites.oks";
+                a.click();
+                URL.revokeObjectURL(url);
+
+                setStatus(
+                    `<span class="ok">✓ Packed ${SPRITES.length} sprites → sprites.oks (${(totalSize / 1024).toFixed(1)} KB)</span>`,
+                );
+                btn.disabled = false;
+            }
+
+            function showHexPreview(buf) {
+                const box = document.getElementById("hexPreview");
+                let html =
+                    '<span class="label">Header hex dump (first 64 bytes):</span><br>';
+                const limit = Math.min(64, buf.length);
+                for (let i = 0; i < limit; i++) {
+                    const hex = buf[i]
+                        .toString(16)
+                        .padStart(2, "0")
+                        .toUpperCase();
+                    if (i < 4) html += `<span class="magic">${hex} </span>`;
+                    else html += `${hex} `;
+                    if ((i + 1) % 16 === 0) html += "<br>";
+                }
+                if (buf.length > 64)
+                    html += `<br><span class="label">… ${buf.length - 64} more bytes</span>`;
+                box.innerHTML = html;
+                box.classList.add("show");
+            }
+
+            function clearAll() {
+                SPRITES.forEach((s) => {
+                    delete files[s.id];
+                    const slot = document.getElementById("slot_" + s.id);
+                    slot.classList.remove("loaded", "error");
+                    document.getElementById("icon_" + s.id).style.display = "";
+                    const prev = document.getElementById("prev_" + s.id);
+                    prev.classList.remove("show");
+                    prev.src = "";
+                    document.getElementById("ph_" + s.id).style.display = "";
+                    document
+                        .getElementById("info_" + s.id)
+                        .classList.add("hidden");
+                    slot.querySelector("input").value = "";
+                });
+                document.getElementById("packBtn").disabled = true;
+                document.getElementById("sizeLabel").textContent = "";
+                document.getElementById("hexPreview").classList.remove("show");
+                document.getElementById("progress").classList.remove("show");
+                document.getElementById("progressBar").style.width = "0%";
+                setStatus(
+                    '<span class="info">→ Drop PNG files into each slot. All 5 must be loaded before packing.</span>',
+                );
+            }
+
+            function setStatus(html) {
+                document.getElementById("status").innerHTML = html;
+            }
+
+            buildGrid();
+            document.getElementById("packBtn").addEventListener("click", pack);
+            document
+                .getElementById("clearBtn")
+                .addEventListener("click", clearAll);
+        </script>
+    </body>
+</html>
